@@ -408,6 +408,13 @@ $(function() {
 		if (typeof radius === "undefined") {
 			radius = 5;
 		}
+
+
+		ctx.strokeStyle = 'rgb(' + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + ')';
+
+		ctx.fillStyle = 'rgba(' + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + ',.5)';
+		// ctx.strokeStyle = "rgb(255, 0, 0)";
+		// ctx.fillStyle = "rgba(255, 255, 0, .5)";
 		ctx.beginPath();
 		ctx.moveTo(this.curPos.x + radius, this.curPos.y);
 		ctx.lineTo(this.curPos.x + size - radius, this.curPos.y);
