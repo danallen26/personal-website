@@ -192,8 +192,8 @@ $(function () {
             ],
 
             PERIOD: [
-                [7,1],
-            ]
+                [7, 1],
+            ],
         }
  
         let nameString = ['L', 'A', 'M', 'B', 'E', 'R', 'T', '', 'L', 'A', 'B', 'S', '', 'L', 'T', 'D', 'PERIOD'];
@@ -205,18 +205,20 @@ $(function () {
 
             if (alphabet[nameString[i]]) {
                 for (let j = 0; j < alphabet[nameString[i]].length; j++) {
-                    g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 1, fill, stroke, true));
+                    g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 3, fill, stroke, true));
                 }
             }
         }
 
-        gLength = g.length;
-        for (var i = 0; i < gLength; i++) {
-            g[i].curPos.x = (canvasWidth / 2 - 180) + g[i].curPos.x;
-            g[i].curPos.y = (canvasHeight / 2 - 65) + g[i].curPos.y;
 
-            g[i].originalPos.x = (canvasWidth / 2 - 180) + g[i].originalPos.x;
-            g[i].originalPos.y = (canvasHeight / 2 - 65) + g[i].originalPos.y;
+        checkWidth = nameString.length * rectSize * 6;
+
+        for (var i = 0; i < g.length; i++) {
+            g[i].curPos.x = (canvasWidth / 2 - 550) + g[i].curPos.x;
+            g[i].curPos.y = (canvasHeight / 2 - 100) + g[i].curPos.y;
+
+            g[i].originalPos.x = (canvasWidth / 2 - 550) + g[i].originalPos.x;
+            g[i].originalPos.y = (canvasHeight / 2 - 100) + g[i].originalPos.y;
         };
 
         pointCollection = new PointCollection();
