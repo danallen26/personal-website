@@ -9,7 +9,7 @@ $(function() {
 
 	function init() {
 		updateCanvasDimensions();
-		let rectSize = 10;
+		let rectSize = 7;
 		var g = [];
 
 		let alphabet = {
@@ -201,14 +201,22 @@ $(function() {
 
 
 		for (let i = 0; i < nameString.length; i++){
-			randomColour = (function(m,s,c){return (c ? arguments.callee(m,s,c-1) : '#') +
-			  				s[m.floor(m.random() * s.length)]})(Math,'0123456789ABCDEF',5);
+			// randomColour = (function(m,s,c){return (c ? arguments.callee(m,s,c-1) : '#') +
+			//   				s[m.floor(m.random() * s.length)]})(Math,'0123456789ABCDEF',5);
+
+			// let stroke = 'rgb(' + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + ')';
+			let stroke = "rgb(105,105,105)"
+
+			let fill = 'rgba(' + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + ',.5)';
+
 			if (alphabet[nameString[i]]) {
 				for (let j = 0; j < alphabet[nameString[i]].length; j++) {
 				
 					// randomColour = (function(m,s,c){return (c ? arguments.callee(m,s,c-1) : '#') +
 			  // 				s[m.floor(m.random() * s.length)]})(Math,'0123456789ABCDEF',5);
-	  				g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 2, 20, true));
+	    // function roundRectangle(x, y, z, size, radius, fill, stroke) {
+	    
+	  				g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 1, fill, stroke, true));
 					// g.push(new Rectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, randomColour));
 				}
 			}
@@ -410,9 +418,9 @@ $(function() {
 		}
 
 
-		ctx.strokeStyle = 'rgb(' + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + ')';
+		ctx.strokeStyle = stroke;
 
-		ctx.fillStyle = 'rgba(' + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + ',.5)';
+		ctx.fillStyle = fill;
 		// ctx.strokeStyle = "rgb(255, 0, 0)";
 		// ctx.fillStyle = "rgba(255, 255, 0, .5)";
 		ctx.beginPath();
@@ -434,34 +442,6 @@ $(function() {
 		} 
 		};
 	};
-
-	function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
-		let ctx = tmpCanvas.getContext('2d');
-		if (typeof stroke == "undefined" ) {
-			stroke = true;
-		}
-
-		if (typeof radius === "undefined") {
-			radius = 5;
-		}
-		ctx.beginPath();
-		ctx.moveTo(x + radius, y);
-		ctx.lineTo(x + width - radius, y);
-		ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-		ctx.lineTo(x + width, y + height - radius);
-		ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-		ctx.lineTo(x + radius, y + height);
-		ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-		ctx.lineTo(x, y + radius);
-		ctx.quadraticCurveTo(x, y, x + radius, y);
-		ctx.closePath();
-		if (stroke) {
-		ctx.stroke();
-		}
-		if (fill) {
-		ctx.fill();
-		}        
-		}
 
 	init();
 });
