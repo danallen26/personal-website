@@ -9,11 +9,7 @@ $(function() {
 
 	function init() {
 		updateCanvasDimensions();
-		let rectSize = 5;
-		// var g = [new Point(202, 78, 0.0, 9, "#ed9d33"), new Rectangle(100, 68, 0.0, 9, "#ef1245"), ];
-		// var g = [new Point(202, 78, 0.0, 9, "#ed9d33"), new Point(348, 83, 0.0, 9, "#d44d61")];
-
-		// var g = [new Rectangle(10 + rectSize * i, 68, 0.0, rectSize, "#ef1245")]
+		let rectSize = 10;
 		var g = [];
 
 		let alphabet = {
@@ -212,25 +208,12 @@ $(function() {
 				
 					// randomColour = (function(m,s,c){return (c ? arguments.callee(m,s,c-1) : '#') +
 			  // 				s[m.floor(m.random() * s.length)]})(Math,'0123456789ABCDEF',5);
-			  		console.log(alphabet[nameString[i]][j][0]);
-					g.push(new Rectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, randomColour));
+	  				g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 2, 20, true));
+					// g.push(new Rectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, randomColour));
 				}
 			}
 		}
-		// for (let i = 0; i < 15; i++){
-		// 	for (let j = 0; j < 15; j++){
-				// randomColour = (function(m,s,c){return (c ? arguments.callee(m,s,c-1) : '#') +
-	  	// 			s[m.floor(m.random() * s.length)]})(Math,'0123456789ABCDEF',5);
-
-
-	 //  				// g.push(new roundRect(ctx, rectSize * i, rectSize * j, rectSize, rectSize, 20, true));
-
-
-		// 		g.push(new Rectangle(rectSize * i, rectSize * j, 0.0, rectSize, randomColour));
-		// 	}
-		// }
-		console.log(g);
-
+	
 		gLength = g.length;
 		for (var i = 0; i < gLength; i++) {
 			g[i].curPos.x = (canvasWidth/2 - 180) + g[i].curPos.x;
@@ -377,56 +360,8 @@ $(function() {
 		};
 	};
 
-	function Point(x, y, z, size, colour) {
-		this.colour = colour;
-		this.curPos = new Vector(x, y, z);
-		this.friction = 0.8;
-		this.originalPos = new Vector(x, y, z);
-		this.radius = size;
-		this.size = size;
-		this.springStrength = 0.2;
-		this.targetPos = new Vector(x, y, z);
-		this.velocity = new Vector(0.0, 0.0, 0.0);
-
-		this.update = function() {
-			var dx = this.targetPos.x - this.curPos.x;
-			var ax = dx * this.springStrength;
-			this.velocity.x += ax;
-			this.velocity.x *= this.friction;
-			this.curPos.x += this.velocity.x;
-
-			var dy = this.targetPos.y - this.curPos.y;
-			var ay = dy * this.springStrength;
-			this.velocity.y += ay;
-			this.velocity.y *= this.friction;
-			this.curPos.y += this.velocity.y;
-
-			var dox = this.originalPos.x - this.curPos.x;
-			var doy = this.originalPos.y - this.curPos.y;
-			var dd = (dox * dox) + (doy * doy);
-			var d = Math.sqrt(dd);
-
-			this.targetPos.z = d/100 + 1;
-			var dz = this.targetPos.z - this.curPos.z;
-			var az = dz * this.springStrength;
-			this.velocity.z += az;
-			this.velocity.z *= this.friction;
-			this.curPos.z += this.velocity.z;
-
-			this.radius = this.size*this.curPos.z;
-			if (this.radius < 1) this.radius = 1;
-		};
-
-		this.draw = function() {
-			ctx.fillStyle = this.colour;
-			ctx.beginPath();
-			ctx.arc(this.curPos.x, this.curPos.y, this.radius, 0, Math.PI*2, true);
-			ctx.fill();
-		};
-	};
-
-    function Rectangle(x, y, z, size, colour) {
-		this.colour = colour;
+	    function roundRectangle(x, y, z, size, radius, fill, stroke) {
+		// this.colour = colour;
 		this.curPos = new Vector(x, y, z);
 		this.friction = 0.8;
 		this.originalPos = new Vector(x, y, z);
@@ -466,57 +401,6 @@ $(function() {
 		};
 
 		this.draw = function() {
-			ctx.fillStyle = this.colour;
-			ctx.beginPath();
-			ctx.rect(this.curPos.x, this.curPos.y, this.size, this.size);
-			ctx.fill();
-		};
-	};
-
-
-
-	    function roundRectangle(x, y, z, size, colour) {
-		this.colour = colour;
-		this.curPos = new Vector(x, y, z);
-		this.friction = 0.8;
-		this.originalPos = new Vector(x, y, z);
-		// this.radius = size;
-		this.size = size;
-		this.springStrength = 0.2;
-		this.targetPos = new Vector(x, y, z);
-		this.velocity = new Vector(0.0, 0.0, 0.0);
-
-		this.update = function() {
-			var dx = this.targetPos.x - this.curPos.x;
-			var ax = dx * this.springStrength;
-			this.velocity.x += ax;
-			this.velocity.x *= this.friction;
-			this.curPos.x += this.velocity.x;
-
-			var dy = this.targetPos.y - this.curPos.y;
-			var ay = dy * this.springStrength;
-			this.velocity.y += ay;
-			this.velocity.y *= this.friction;
-			this.curPos.y += this.velocity.y;
-
-			var dox = this.originalPos.x - this.curPos.x;
-			var doy = this.originalPos.y - this.curPos.y;
-			var dd = (dox * dox) + (doy * doy);
-			var d = Math.sqrt(dd);
-
-			this.targetPos.z = d/100 + 1;
-			var dz = this.targetPos.z - this.curPos.z;
-			var az = dz * this.springStrength;
-			this.velocity.z += az;
-			this.velocity.z *= this.friction;
-			this.curPos.z += this.velocity.z;
-
-			this.radius = this.size*this.curPos.z;
-			if (this.radius < 1) this.radius = 1;
-		};
-
-		this.draw = function() {
-			let ctx = tmpCanvas.getContext('2d');
 		if (typeof stroke == "undefined" ) {
 			stroke = true;
 		}
@@ -525,15 +409,15 @@ $(function() {
 			radius = 5;
 		}
 		ctx.beginPath();
-		ctx.moveTo(x + radius, y);
-		ctx.lineTo(x + width - radius, y);
-		ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-		ctx.lineTo(x + width, y + height - radius);
-		ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-		ctx.lineTo(x + radius, y + height);
-		ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-		ctx.lineTo(x, y + radius);
-		ctx.quadraticCurveTo(x, y, x + radius, y);
+		ctx.moveTo(this.curPos.x + radius, this.curPos.y);
+		ctx.lineTo(this.curPos.x + size - radius, this.curPos.y);
+		ctx.quadraticCurveTo(this.curPos.x + size, this.curPos.y, this.curPos.x + size, this.curPos.y + radius);
+		ctx.lineTo(this.curPos.x + size, this.curPos.y + size - radius);
+		ctx.quadraticCurveTo(this.curPos.x + size, this.curPos.y + size, this.curPos.x + size - radius, this.curPos.y + size);
+		ctx.lineTo(this.curPos.x + radius, this.curPos.y + size);
+		ctx.quadraticCurveTo(this.curPos.x, this.curPos.y + size, this.curPos.x, this.curPos.y + size - radius);
+		ctx.lineTo(this.curPos.x, this.curPos.y + radius);
+		ctx.quadraticCurveTo(this.curPos.x, this.curPos.y, this.curPos.x + radius, this.curPos.y);
 		ctx.closePath();
 		if (stroke) {
 		ctx.stroke();
