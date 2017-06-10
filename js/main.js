@@ -200,7 +200,9 @@ $(function () {
 
 
         for (let i = 0; i < nameString.length; i++){
-            let stroke = "rgb(105,105,105)"
+            // let stroke = "rgb(105,105,105)"
+            let stroke = "rgb(50,50,50)"
+
             let fill = 'rgba(' + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + ',.5)';
 
             if (alphabet[nameString[i]]) {
