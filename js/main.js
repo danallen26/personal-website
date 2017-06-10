@@ -261,6 +261,7 @@ $(function () {
     function timeout() {
         draw();
         update();
+        exchange(); // may take random ints to switch blocks
 
         setTimeout(function () { timeout(); }, 30);
     };
@@ -283,6 +284,11 @@ $(function () {
         if (pointCollection)
             pointCollection.update();
     };
+
+    function exchange() {
+        if (pointCollection)
+            pointCollection.exchange();
+    }
 
     function Vector(x, y, z) {
         this.x = x;
@@ -332,15 +338,16 @@ $(function () {
                 var dd = (dx * dx) + (dy * dy);
                 var d = Math.sqrt(dd);
 
-                if (d < 150) {
-                    point.targetPos.x = (this.mousePos.x < point.curPos.x) ? point.curPos.x - dx :
-                                                point.curPos.x - dx;
-                    point.targetPos.y = (this.mousePos.y < point.curPos.y) ? point.curPos.y - dy :
-                                                point.curPos.y - dy;
-                } else {
-                    point.targetPos.x = point.originalPos.x;
-                    point.targetPos.y = point.originalPos.y;
-                };
+                // if (d < 150) {
+                //     point.targetPos.x = (this.mousePos.x < point.curPos.x) ? point.curPos.x - dx :
+                //                                 point.curPos.x - dx;
+                //     point.targetPos.y = (this.mousePos.y < point.curPos.y) ? point.curPos.y - dy :
+                //                                 point.curPos.y - dy;
+                // } 
+                // else {
+                //     point.targetPos.x = point.originalPos.x;
+                //     point.targetPos.y = point.originalPos.y;
+                // };
 
                 point.update();
             };
@@ -356,6 +363,30 @@ $(function () {
 
                 point.draw();
             };
+        };
+
+        this.exchange = function () {
+            // var that = this;
+            // setTimeout(function () {
+            //     var pointsLength = that.points.length;
+            //     let firstBlock = Math.floor(Math.random() * that.points.length);
+            //     let secondBlock = Math.floor(Math.random() * that.points.length);
+            //     let tempTargetPos = that.points[firstBlock].targetPos;
+
+            //     that.points[firstBlock].targetPos = that.points[secondBlock].targetPos;
+            //     that.points[secondBlock].targetPos = tempTargetPos;
+
+            // }, 1000);   
+
+            var pointsLength = this.points.length;
+            let firstBlock = Math.floor(Math.random() * this.points.length);
+            let secondBlock = Math.floor(Math.random() * this.points.length);
+            let tempTargetPos = this.points[firstBlock].targetPos;
+
+            this.points[firstBlock].targetPos = this.points[secondBlock].targetPos;
+            this.points[secondBlock].targetPos = tempTargetPos;         
+            // setTimeout(function () { timeout(); }, 3000);
+
         };
     };
 
