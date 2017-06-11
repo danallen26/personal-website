@@ -62,7 +62,6 @@ $(function () {
                 [3,3],
                 [4,3],
                 [2,4],
-                [4,3],
                 [1,5],
                 [2,5],
                 [3,5],
@@ -200,8 +199,8 @@ $(function () {
 
 
         for (let i = 0; i < nameString.length; i++){
-            // let stroke = "rgb(105,105,105)"
-            let stroke = "rgb(50,50,50)"
+            let stroke = "rgb(155,155,155)"
+            // let stroke = "rgb(50,50,50)"
 
             let fill = 'rgba(' + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + ',.5)';
 
@@ -215,6 +214,9 @@ $(function () {
         for (var i = 0; i < g.length; i++) {
             g[i].curPos.x = (canvasWidth / 2 - 650) + g[i].curPos.x;
             g[i].curPos.y = (canvasHeight / 2 - 120) + g[i].curPos.y;
+
+            g[i].targetPos.x = (canvasWidth / 2 - 650) + g[i].targetPos.x;
+            g[i].targetPos.y = (canvasHeight / 2 - 120) + g[i].targetPos.y;
 
             g[i].originalPos.x = (canvasWidth / 2 - 650) + g[i].originalPos.x;
             g[i].originalPos.y = (canvasHeight / 2 - 120) + g[i].originalPos.y;
@@ -259,9 +261,16 @@ $(function () {
     };
 
     function timeout() {
-        draw();
+        draw(); 
+        exchange();    
         update();
-        exchange(); // may take random ints to switch blocks
+        // function timewait() {
+        //     setTimeout(function () {
+        //         exchange();
+        //         timewait();
+        //     }, 5000);
+        // }
+        // exchange(); // may take random ints to switch blocks
 
         setTimeout(function () { timeout(); }, 30);
     };
@@ -349,6 +358,9 @@ $(function () {
                 //     point.targetPos.y = point.originalPos.y;
                 // };
 
+                // point.targetPos.x = point.originalPos.x;
+                // point.targetPos.y = point.originalPos.y;
+
                 point.update();
             };
         };
@@ -382,9 +394,18 @@ $(function () {
             let firstBlock = Math.floor(Math.random() * this.points.length);
             let secondBlock = Math.floor(Math.random() * this.points.length);
             let tempTargetPos = this.points[firstBlock].targetPos;
+            let tempFill = this.points[firstBlock].fill;
+            let tempStroke = this.points[firstBlock].stroke;
+
 
             this.points[firstBlock].targetPos = this.points[secondBlock].targetPos;
-            this.points[secondBlock].targetPos = tempTargetPos;         
+            this.points[firstBlock].fill = this.points[secondBlock].fill;
+            this.points[firstBlock].stroke = this.points[secondBlock].stroke;
+
+
+            this.points[secondBlock].targetPos = tempTargetPos;
+            this.points[secondBlock].fill = tempFill;
+            this.points[secondBlock].stroke = tempStroke;    
             // setTimeout(function () { timeout(); }, 3000);
 
         };
@@ -398,6 +419,8 @@ $(function () {
         this.springStrength = 0.2;
         this.targetPos = new Vector(x, y, z);
         this.velocity = new Vector(0.0, 0.0, 0.0);
+        this.fill = fill;
+        this.stroke = stroke;
 
         this.update = function () {
             var dx = this.targetPos.x - this.curPos.x;
@@ -437,8 +460,8 @@ $(function () {
                 radius = 5;
             }
 
-            ctx.strokeStyle = stroke;
-            ctx.fillStyle = fill;
+            ctx.strokeStyle = this.stroke;
+            ctx.fillStyle = this.fill;
             ctx.beginPath();
             ctx.moveTo(this.curPos.x + radius, this.curPos.y);
             ctx.lineTo(this.curPos.x + size - radius, this.curPos.y);
