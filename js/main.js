@@ -12,214 +12,39 @@ $(function () {
 
     function init() {
         updateCanvasDimensions();
-        let rectSize = 10;
+        let rectSize = canvasWidth / 200;
         var g = [];
-        let alphabet = {
-            L: [
-                [1,1],
-                [2,1],
-                [3,1],
-                [4,1],
-                [5,1],
-                [6,1],
-                [7,1],
-                [7,2],
-                [7,3],
-                [7,4],
-                [7,5],
-            ],
+        
+        let nameString = ["L", "A", "M", "B", "E", "R", "T", "", "L", "A", "B", "S", "", "L", "T", "D", "PERIOD"];
 
-            A: [
-                [2,1],
-                [3,1],
-                [4,1],
-                [5,1],
-                [6,1],
-                [7,1],
-                [1,2],
-                [1,3],
-                [1,4],
-                [4,2],
-                [4,3],
-                [4,4],
-                [2,5],
-                [3,5],
-                [4,5],
-                [5,5],
-                [6,5],
-                [7,5],
-            ],
+        var textWidth = nameString.length * 6 * rectSize;
 
-            M: [
-                [1,1],
-                [2,1],
-                [3,1],
-                [4,1],
-                [5,1],
-                [6,1],
-                [7,1],
-                [2,2],
-                [3,3],
-                [4,3],
-                [2,4],
-                [1,5],
-                [2,5],
-                [3,5],
-                [4,5],
-                [5,5],
-                [6,5],
-                [7,5],
-            ],
+        for (let i = 0; i < nameString.length; i++) {
+            // let stroke = "rgb(155, 155, 155)"
+            let stroke = "rgb(190,190,190)"
 
-            B: [
-                [1,1],
-                [2,1],
-                [3,1],
-                [4,1],
-                [5,1],
-                [6,1],
-                [7,1],
-                [1,2],
-                [1,3],
-                [1,4],
-                [4,2],
-                [4,3],
-                [4,4],
-                [7,2],
-                [7,3],
-                [7,4],
-                [2,5],
-                [3,5],
-                [5,5],
-                [6,5],
-            ],
-
-            E: [
-                [1,1],
-                [2,1],
-                [3,1],
-                [4,1],
-                [5,1],
-                [6,1],
-                [7,1],
-                [1,2],
-                [1,3],
-                [1,4],
-                [1,5],
-                [4,2],
-                [4,3],
-                [4,4],
-                [7,2],
-                [7,3],
-                [7,4],
-                [7,5],
-            ],
-
-            R: [
-                [1,1],
-                [2,1],
-                [3,1],
-                [4,1],
-                [5,1],
-                [6,1],
-                [7,1],
-                [1,2],
-                [1,3],
-                [1,4],
-                [4,2],
-                [4,3],
-                [4,4],
-                [2,5],
-                [3,5],
-                [5,3],
-                [6,4],
-                [7,5],
-            ],
-
-            T: [
-                [1,1],
-                [1,2],
-                [1,3],
-                [1,4],
-                [1,5],
-                [2,3],
-                [3,3],
-                [4,3],
-                [5,3],
-                [6,3],
-                [7,3],
-            ],
-
-            S: [
-                [1,2],
-                [1,3],
-                [1,4],
-                [1,5],
-                [2,1],
-                [3,1],
-                [4,2],
-                [4,3],
-                [4,4],
-                [5,5],
-                [6,5],
-                [7,1],
-                [7,2],
-                [7,3],
-                [7,4],
-            ],
-
-            D: [
-                [1,1],
-                [2,1],
-                [3,1],
-                [4,1],
-                [5,1],
-                [6,1],
-                [7,1],
-                [1,2],
-                [1,3],
-                [1,4],
-                [7,2],
-                [7,3],
-                [7,4],
-                [2,5],
-                [3,5],
-                [4,5],
-                [5,5],
-                [6,5],
-
-            ],
-
-            PERIOD: [
-                [7, 1],
-            ],
-        }
- 
-        let nameString = ['L', 'A', 'M', 'B', 'E', 'R', 'T', '', 'L', 'A', 'B', 'S', '', 'L', 'T', 'D', 'PERIOD'];
-
-
-        for (let i = 0; i < nameString.length; i++){
-            let stroke = "rgb(155,155,155)"
-            // let stroke = "rgb(50,50,50)"
-
-            let fill = 'rgba(' + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + ',.5)';
+            let fill = "rgba(" + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + ',.5)';
 
             if (alphabet[nameString[i]]) {
                 for (let j = 0; j < alphabet[nameString[i]].length; j++) {
-                    g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 2, fill, stroke, true));
+                    g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 0, fill, stroke, true));
+                    // g.push(new Rectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, fill))
                 }
             }
         }
 
         for (var i = 0; i < g.length; i++) {
-            g[i].curPos.x = (canvasWidth / 2 - 650) + g[i].curPos.x;
-            g[i].curPos.y = (canvasHeight / 2 - 120) + g[i].curPos.y;
+            // g[i].curPos.x = (canvasWidth / 2 - 650) + g[i].curPos.x;
+            // g[i].curPos.y = (canvasHeight / 2 - 120) + g[i].curPos.y;
 
-            g[i].targetPos.x = (canvasWidth / 2 - 650) + g[i].targetPos.x;
-            g[i].targetPos.y = (canvasHeight / 2 - 120) + g[i].targetPos.y;
+            g[i].curPos.x = canvasWidth / 2;
+            g[i].curPos.y = canvasHeight / 2;
 
-            g[i].originalPos.x = (canvasWidth / 2 - 650) + g[i].originalPos.x;
-            g[i].originalPos.y = (canvasHeight / 2 - 120) + g[i].originalPos.y;
+            g[i].targetPos.x = (canvasWidth / 2 - textWidth / 2) + g[i].targetPos.x;
+            g[i].targetPos.y = (canvasHeight / 2 - 8 * rectSize / 2) + g[i].targetPos.y;
+
+            g[i].originalPos.x = (canvasWidth / 2 - textWidth / 2) + g[i].originalPos.x;
+            g[i].originalPos.y = (canvasHeight / 2 - 8 * rectSize / 2) + g[i].originalPos.y;
         };
 
         pointCollection = new PointCollection();
@@ -246,7 +71,7 @@ $(function () {
         $canvas.attr({ height: $(window).height(), width: $(window).width() });
         canvasWidth = $canvas.width();
         canvasHeight = $canvas.height();
-
+        rectSize = canvasWidth / 200;
         draw();
     };
 
@@ -262,7 +87,7 @@ $(function () {
 
     function timeout() {
         draw(); 
-        exchange();    
+        // exchange();    
         update();
         // function timewait() {
         //     setTimeout(function () {
@@ -347,16 +172,16 @@ $(function () {
                 var dd = (dx * dx) + (dy * dy);
                 var d = Math.sqrt(dd);
 
-                // if (d < 150) {
-                //     point.targetPos.x = (this.mousePos.x < point.curPos.x) ? point.curPos.x - dx :
-                //                                 point.curPos.x - dx;
-                //     point.targetPos.y = (this.mousePos.y < point.curPos.y) ? point.curPos.y - dy :
-                //                                 point.curPos.y - dy;
-                // } 
-                // else {
-                //     point.targetPos.x = point.originalPos.x;
-                //     point.targetPos.y = point.originalPos.y;
-                // };
+                if (d < 150) {
+                    point.targetPos.x = (this.mousePos.x < point.curPos.x) ? point.curPos.x - dx :
+                                                point.curPos.x - dx;
+                    point.targetPos.y = (this.mousePos.y < point.curPos.y) ? point.curPos.y - dy :
+                                                point.curPos.y - dy;
+                } 
+                else {
+                    point.targetPos.x = point.originalPos.x;
+                    point.targetPos.y = point.originalPos.y;
+                };
 
                 // point.targetPos.x = point.originalPos.x;
                 // point.targetPos.y = point.originalPos.y;
@@ -377,39 +202,93 @@ $(function () {
             };
         };
 
-        this.exchange = function () {
-            // var that = this;
-            // setTimeout(function () {
-            //     var pointsLength = that.points.length;
-            //     let firstBlock = Math.floor(Math.random() * that.points.length);
-            //     let secondBlock = Math.floor(Math.random() * that.points.length);
-            //     let tempTargetPos = that.points[firstBlock].targetPos;
+        var self = this;
+        this.exchange = function (wait=true) {
 
-            //     that.points[firstBlock].targetPos = that.points[secondBlock].targetPos;
-            //     that.points[secondBlock].targetPos = tempTargetPos;
+            if (wait === true) {
+                console.log("wait is true");
+                setTimeout(function () {
+                    self.exchange(false);
+                    // var pointsLength = that.points.length;
+                    // let firstBlock = Math.floor(Math.random() * that.points.length);
+                    // let secondBlock = Math.floor(Math.random() * that.points.length);
+                    // let tempTargetPos = that.points[firstBlock].targetPos;
 
-            // }, 1000);   
+                    // that.points[firstBlock].targetPos = that.points[secondBlock].targetPos;
+                    // that.points[secondBlock].targetPos = tempTargetPos;
 
-            var pointsLength = this.points.length;
-            let firstBlock = Math.floor(Math.random() * this.points.length);
-            let secondBlock = Math.floor(Math.random() * this.points.length);
-            let tempTargetPos = this.points[firstBlock].targetPos;
-            let tempFill = this.points[firstBlock].fill;
-            let tempStroke = this.points[firstBlock].stroke;
+                }, 5000); 
+            } else {
+                console.log("wait is false");
+                var pointsLength = this.points.length;
+                let firstBlock = Math.floor(Math.random() * this.points.length);
+                let secondBlock = Math.floor(Math.random() * this.points.length);
+                let tempTargetPos = this.points[firstBlock].targetPos;
+                let tempFill = this.points[firstBlock].fill;
+                let tempStroke = this.points[firstBlock].stroke;
 
 
-            this.points[firstBlock].targetPos = this.points[secondBlock].targetPos;
-            this.points[firstBlock].fill = this.points[secondBlock].fill;
-            this.points[firstBlock].stroke = this.points[secondBlock].stroke;
+                this.points[firstBlock].targetPos = this.points[secondBlock].targetPos;
+                this.points[firstBlock].fill = this.points[secondBlock].fill;
+                this.points[firstBlock].stroke = this.points[secondBlock].stroke;
 
 
-            this.points[secondBlock].targetPos = tempTargetPos;
-            this.points[secondBlock].fill = tempFill;
-            this.points[secondBlock].stroke = tempStroke;    
-            // setTimeout(function () { timeout(); }, 3000);
+                this.points[secondBlock].targetPos = tempTargetPos;
+                this.points[secondBlock].fill = tempFill;
+                this.points[secondBlock].stroke = tempStroke;    
+                // setTimeout(function () { timeout(); }, 3000);
+            }
 
         };
     };
+
+        function Rectangle(x, y, z, size, colour) {
+            this.colour = colour;
+            this.curPos = new Vector(x, y, z);
+            this.friction = 0.8;
+            this.originalPos = new Vector(x, y, z);
+            // this.radius = size;
+            this.size = size;
+            this.springStrength = 0.2;
+            this.targetPos = new Vector(x, y, z);
+            this.velocity = new Vector(0.0, 0.0, 0.0);
+
+            this.update = function() {
+                var dx = this.targetPos.x - this.curPos.x;
+                var ax = dx * this.springStrength;
+                this.velocity.x += ax;
+                this.velocity.x *= this.friction;
+                this.curPos.x += this.velocity.x;
+
+                var dy = this.targetPos.y - this.curPos.y;
+                var ay = dy * this.springStrength;
+                this.velocity.y += ay;
+                this.velocity.y *= this.friction;
+                this.curPos.y += this.velocity.y;
+
+                var dox = this.originalPos.x - this.curPos.x;
+                var doy = this.originalPos.y - this.curPos.y;
+                var dd = (dox * dox) + (doy * doy);
+                var d = Math.sqrt(dd);
+
+                this.targetPos.z = d/100 + 1;
+                var dz = this.targetPos.z - this.curPos.z;
+                var az = dz * this.springStrength;
+                this.velocity.z += az;
+                this.velocity.z *= this.friction;
+                this.curPos.z += this.velocity.z;
+
+                this.radius = this.size*this.curPos.z;
+                if (this.radius < 1) this.radius = 1;
+            };
+
+            this.draw = function() {
+                ctx.fillStyle = this.colour;
+                ctx.beginPath();
+                ctx.rect(this.curPos.x, this.curPos.y, this.size, this.size);
+                ctx.fill();
+            };
+        };
 
     function roundRectangle(x, y, z, size, radius, fill, stroke) {
         this.curPos = new Vector(x, y, z);
