@@ -12,7 +12,7 @@ $(function () {
 
     function init() {
         updateCanvasDimensions();
-        let rectSize = canvasWidth / 200;
+        let rectSize = canvasWidth / 150;
         var g = [];
         
         let nameString = ["L", "A", "M", "B", "E", "R", "T", "", "L", "A", "B", "S", "", "L", "T", "D", "PERIOD"];
@@ -27,7 +27,7 @@ $(function () {
 
             if (alphabet[nameString[i]]) {
                 for (let j = 0; j < alphabet[nameString[i]].length; j++) {
-                    g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 0, fill, stroke, true));
+                    g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 2, fill, stroke, true));
                     // g.push(new Rectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, fill))
                 }
             }
