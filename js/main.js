@@ -1,6 +1,3 @@
-// var alp = require("./alphabet");
-// At some point try and load alphabet in from alphabet.json
-
 $(function () {
     var $canvas = $("#c");
     var canvasHeight;
@@ -12,7 +9,7 @@ $(function () {
 
     function init() {
         updateCanvasDimensions();
-        let rectSize = canvasWidth / 150;
+        let rectSize = canvasWidth / 170;
         var g = [];
         
         let nameString = ["L", "A", "M", "B", "E", "R", "T", "", "L", "A", "B", "S", "", "L", "T", "D", "PERIOD"];
@@ -20,31 +17,25 @@ $(function () {
         var textWidth = nameString.length * 6 * rectSize;
 
         for (let i = 0; i < nameString.length; i++) {
-            // let stroke = "rgb(155, 155, 155)"
             let stroke = "rgb(190,190,190)"
-
             let fill = "rgba(" + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + ',.5)';
 
             if (alphabet[nameString[i]]) {
                 for (let j = 0; j < alphabet[nameString[i]].length; j++) {
                     g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 2, fill, stroke, true));
-                    // g.push(new Rectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, fill))
                 }
             }
         }
 
         for (var i = 0; i < g.length; i++) {
-            // g[i].curPos.x = (canvasWidth / 2 - 650) + g[i].curPos.x;
-            // g[i].curPos.y = (canvasHeight / 2 - 120) + g[i].curPos.y;
-
             g[i].curPos.x = canvasWidth / 2;
             g[i].curPos.y = canvasHeight / 2;
 
             g[i].targetPos.x = (canvasWidth / 2 - textWidth / 2) + g[i].targetPos.x;
-            g[i].targetPos.y = (canvasHeight / 2 - 8 * rectSize / 2) + g[i].targetPos.y;
+            g[i].targetPos.y = (canvasHeight / 2 - 8 * rectSize) + g[i].targetPos.y;
 
             g[i].originalPos.x = (canvasWidth / 2 - textWidth / 2) + g[i].originalPos.x;
-            g[i].originalPos.y = (canvasHeight / 2 - 8 * rectSize / 2) + g[i].originalPos.y;
+            g[i].originalPos.y = (canvasHeight / 2 - 8 * rectSize) + g[i].originalPos.y;
         };
 
         pointCollection = new PointCollection();
