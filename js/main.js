@@ -4,6 +4,7 @@ $(function () {
     var canvasWidth;
     var ctx;
     var dt = 0.1;
+    var rgb = [];
 
     var pointCollection;
 
@@ -16,11 +17,15 @@ $(function () {
         var textWidth = nameString.length * 6 * rectSize;
 
         for (let i = 0; i < nameString.length; i++) {
-            let stroke = "rgb(255, 255, 255)"
-            let fill = "rgba(" + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + "," + (Math.floor(Math.random() * 255) + 1) + ',0.7)';
+            let stroke = "rgb(255, 255, 255)";
+            let red = Math.floor(Math.random() * 255) + 1;
+            let grn = Math.floor(Math.random() * 255) + 1;
+            let blu = Math.floor(Math.random() * 255) + 1;
+            let fill = "rgba(" + red + "," + grn + "," + blu + ',0.7)';
 
             if (alphabet[nameString[i]]) {
                 for (let j = 0; j < alphabet[nameString[i]].length; j++) {
+                    rgb.push([red, grn, blu]);
                     g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 2, fill, stroke, true));
                 }
             }
@@ -179,11 +184,16 @@ $(function () {
                 let dd = (dx * dx) + (dy * dy);
                 let d = Math.sqrt(dd);
 
-                let red = Math.floor(125 * Math.sin(0.01 * dx + 30) + 125);
-                let grn = Math.floor(125 * Math.sin(0.009 * d + 40) + 125);
-                let blu = Math.floor(125 * Math.sin(0.008 * dy + 60) + 125);
+                rgb[i][0] += Math.floor(0.0005 * Math.sin(0.01 * d + 30));
+                rgb[i][1] += Math.floor(0.0005 * Math.sin(0.009 * d + 40));
+                rgb[i][2] += Math.floor(0.0005 * Math.sin(0.008 * d + 60));
+
+
+                // let red = Math.floor(125 * Math.sin(0.01 * dx + 30) + 125);
+                // let grn = Math.floor(125 * Math.sin(0.009 * d + 40) + 125);
+                // let blu = Math.floor(125 * Math.sin(0.008 * dy + 60) + 125);
                 // this.points[i].fill = "rgba(" + Math.floor(255 * (this.mousePos.x / canvasWidth)**2) + "," + Math.floor(255 * (this.mousePos.y / canvasWidth)**2) + "," + Math.floor(255 * (3 * d / canvasWidth)**2) + ',.5)';
-                this.points[i].fill = "rgba(" + red + "," + grn + "," + blu + ',1.0)';
+                this.points[i].fill = "rgba(" + rgb[i][0] + "," + rgb[i][1] + "," + rgb[i][2] + ',0.7)';
 
             }
         };
