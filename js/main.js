@@ -65,8 +65,11 @@ $(function () {
     };
 
     function onMove(e) {
-        if (pointCollection)
+        if (pointCollection){
             pointCollection.mousePos.set(e.pageX, e.pageY);
+            colour();
+        }
+
     };
 
     function onTouchMove(e) {
@@ -98,6 +101,11 @@ $(function () {
         if (pointCollection)
             pointCollection.update();
     };
+
+    function colour() {
+        if (pointCollection)
+            pointCollection.colour();
+    }
 
     function Vector(x, y, z) {
         this.x = x;
@@ -159,6 +167,25 @@ $(function () {
 
                 point.update();
             };
+        };
+
+        this.colour = function () {
+            var pointsLength = this.points.length;
+
+            for (let i = 0; i < pointsLength; i++) {
+
+                let dx = this.mousePos.x - this.points[i].curPos.x;
+                let dy = this.mousePos.y - this.points[i].curPos.y;
+                let dd = (dx * dx) + (dy * dy);
+                let d = Math.sqrt(dd);
+
+                let red = Math.floor(125 * Math.sin(0.01 * dx + 30) + 125);
+                let grn = Math.floor(125 * Math.sin(0.009 * d + 40) + 125);
+                let blu = Math.floor(125 * Math.sin(0.008 * dy + 60) + 125);
+                // this.points[i].fill = "rgba(" + Math.floor(255 * (this.mousePos.x / canvasWidth)**2) + "," + Math.floor(255 * (this.mousePos.y / canvasWidth)**2) + "," + Math.floor(255 * (3 * d / canvasWidth)**2) + ',.5)';
+                this.points[i].fill = "rgba(" + red + "," + grn + "," + blu + ',1.0)';
+
+            }
         };
 
         this.draw = function () {
