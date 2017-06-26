@@ -5,7 +5,13 @@ $(function () {
     var ctx;
     var dt = 0.1;
     var rgb = [];
-
+    var amplitudes = [];
+    var redFreq = 0.010;
+    var grnFreq = 0.010;
+    var bluFreq = 0.010;
+    var redPhase = 0.0;
+    var grnPhase = 0.0;
+    var bluPhase = 0.0;
     var pointCollection;
 
     function init() {
@@ -22,10 +28,32 @@ $(function () {
             let grn = Math.floor(Math.random() * 255) + 1;
             let blu = Math.floor(Math.random() * 255) + 1;
             let fill = "rgba(" + red + "," + grn + "," + blu + ',0.7)';
+            let redAmp = 0;
+            let grnAmp = 0;
+            let bluAmp = 0;
+
+            if (red > 127) {
+                redAmp = (255 - red) / 2;
+            } else {
+                redAmp = red / 2;
+            }
+
+            if (grn > 127) {
+                grnAmp = (255 - grn);
+            } else {
+                grnAmp = grn / 2;
+            }
+
+            if (blu > 127) {
+                bluAmp = (255 - blu);
+            } else {
+                bluAmp = blu / 2;
+            }
 
             if (alphabet[nameString[i]]) {
                 for (let j = 0; j < alphabet[nameString[i]].length; j++) {
                     rgb.push([red, grn, blu]);
+                    amplitudes.push([redAmp, grnAmp, bluAmp]);
                     g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 2, fill, stroke, true));
                 }
             }
@@ -184,16 +212,16 @@ $(function () {
                 let dd = (dx * dx) + (dy * dy);
                 let d = Math.sqrt(dd);
 
-                rgb[i][0] += Math.floor(0.0005 * Math.sin(0.01 * d + 30));
-                rgb[i][1] += Math.floor(0.0005 * Math.sin(0.009 * d + 40));
-                rgb[i][2] += Math.floor(0.0005 * Math.sin(0.008 * d + 60));
+                let tmpRed = rgb[i][0] + Math.floor(amplitudes[i][0] * Math.cos(redFreq * d + redPhase));
+                let tmpGrn =  rgb[i][1] + Math.floor(amplitudes[i][1] * Math.cos(grnFreq * d + grnPhase));
+                let tmpBlu =  rgb[i][2] + Math.floor(amplitudes[i][2] * Math.cos(bluFreq * d + bluPhase));
 
 
                 // let red = Math.floor(125 * Math.sin(0.01 * dx + 30) + 125);
                 // let grn = Math.floor(125 * Math.sin(0.009 * d + 40) + 125);
                 // let blu = Math.floor(125 * Math.sin(0.008 * dy + 60) + 125);
                 // this.points[i].fill = "rgba(" + Math.floor(255 * (this.mousePos.x / canvasWidth)**2) + "," + Math.floor(255 * (this.mousePos.y / canvasWidth)**2) + "," + Math.floor(255 * (3 * d / canvasWidth)**2) + ',.5)';
-                this.points[i].fill = "rgba(" + rgb[i][0] + "," + rgb[i][1] + "," + rgb[i][2] + ',0.7)';
+                this.points[i].fill = "rgba(" + tmpRed + "," + tmpGrn + "," + tmpBlu + ',0.7)';
 
             }
         };
