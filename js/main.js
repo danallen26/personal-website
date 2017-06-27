@@ -78,6 +78,8 @@ $(function () {
 
     function initEventListeners() {
         $(window).bind("resize", updateCanvasDimensions).bind("mousemove", onMove);
+        $(window).bind("resize", updateCanvasDimensions).bind("click", onClick);
+
 
         $canvas.get(0).ontouchmove = function (e) {
             e.preventDefault();
@@ -98,9 +100,17 @@ $(function () {
     };
 
     function onMove(e) {
-        if (pointCollection){
+        if (pointCollection) {
             pointCollection.mousePos.set(e.pageX, e.pageY);
             colour();
+        }
+
+    };
+
+    function onClick(e) {
+        if (pointCollection) {
+            pointCollection.mousePos.set(e.pageX, e.pageY);
+            explode();
         }
 
     };
@@ -138,6 +148,11 @@ $(function () {
     function colour() {
         if (pointCollection)
             pointCollection.colour();
+    }
+
+    function explode() {
+        if (pointCollection)
+            pointCollection.explode();
     }
 
     function Vector(x, y, z) {
@@ -215,14 +230,22 @@ $(function () {
                 let tmpRed = rgb[i][0] + Math.floor(amplitudes[i][0] * Math.cos(redFreq * d + redPhase));
                 let tmpGrn =  rgb[i][1] + Math.floor(amplitudes[i][1] * Math.cos(grnFreq * d + grnPhase));
                 let tmpBlu =  rgb[i][2] + Math.floor(amplitudes[i][2] * Math.cos(bluFreq * d + bluPhase));
-
-
-                // let red = Math.floor(125 * Math.sin(0.01 * dx + 30) + 125);
-                // let grn = Math.floor(125 * Math.sin(0.009 * d + 40) + 125);
-                // let blu = Math.floor(125 * Math.sin(0.008 * dy + 60) + 125);
-                // this.points[i].fill = "rgba(" + Math.floor(255 * (this.mousePos.x / canvasWidth)**2) + "," + Math.floor(255 * (this.mousePos.y / canvasWidth)**2) + "," + Math.floor(255 * (3 * d / canvasWidth)**2) + ',.5)';
                 this.points[i].fill = "rgba(" + tmpRed + "," + tmpGrn + "," + tmpBlu + ',0.5)';
+                
+            }
+        };
 
+        this.explode = function () {
+            console.log("Explode!!!");
+            var pointsLength = this.points.length;
+
+            for (let i = 0; i < pointsLength; i++) {
+                let dx = this.mousePos.x - this.points[i].curPos.x;
+                let dy = this.mousePos.y - this.points[i].curPos.y;
+                let dd = (dx * dx) + (dy * dy);
+                let d = Math.sqrt(dd);
+                this.points[i].velocity.x -= 100 * Math.sin(0.01 * this.points[i].targetPos.x);
+                this.points[i].velocity.y += 200 * Math.sin(0.01 * this.points[i].targetPos.y);
             }
         };
 
