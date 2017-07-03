@@ -1,3 +1,5 @@
+/*@import url('https://fonts.googleapis.com/css?family=Lato');*/
+
 html {
 	height: 100%;
 }
@@ -10,18 +12,14 @@ body {
     right:0;
     height: 100%;
     width: 100%;
+    font-family: 'Lato', sans-serif;
 }
 
-/*body {
-	color: #ccc;
-	font-family: Helvetica Neue, Verdana, sans-serif;
-	font-size: 20px;
-}*/
-
-
-/*canvas, section {
-	display: block;
-}*/
+h1 {
+    padding-top: 100px;
+    font-family: 'Lato', sans-serif;
+    
+}
 
 #c-research {
     padding-left: 0;
@@ -34,11 +32,6 @@ body {
     height: 100%;
 }
 
-/*body {
-	width=100%;
-	height=100%;
-}*/
-
 .container-fluid {
     padding: 0px;
 	position: absolute;
@@ -46,21 +39,6 @@ body {
     height: 100%;
     margin: 0;
 }
-
-/*#attribution {
-	bottom: 40px;
-	position: absolute;
-	right: 40px;
-}
-*/
-/*#WrapAll {
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    overflow:hidden;
-}*/
 
 i {
     font-size: 35px;

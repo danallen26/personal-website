@@ -17,7 +17,6 @@ $(function () {
     function init() {
         updateCanvasDimensions();
         let rectSize = canvasWidth / 120;
-        console.log("rectSize (main) is: ", rectSize);
         var g = [];
         let nameString = ["L", "A", "M", "B", "E", "R", "T", "", "L", "A", "B", "S", "",
                           "L", "T", "D", "PERIOD"];
@@ -79,7 +78,7 @@ $(function () {
 
     function initEventListeners() {
         $(window).bind("resize", updateCanvasDimensions).bind("mousemove", onMove);
-        $(window).bind("resize", updateCanvasDimensions).bind("click", onClick);
+        // $(window).bind("resize", updateCanvasDimensions).bind("click", onClick);
 
 
         $canvas.get(0).ontouchmove = function (e) {
@@ -108,13 +107,13 @@ $(function () {
 
     };
 
-    function onClick(e) {
-        if (pointCollection) {
-            pointCollection.mousePos.set(e.pageX, e.pageY);
-            explode();
-        }
+    // function onClick(e) {
+    //     if (pointCollection) {
+    //         pointCollection.mousePos.set(e.pageX, e.pageY);
+    //         explode();
+    //     }
 
-    };
+    // };
 
     function onTouchMove(e) {
         if (pointCollection)
@@ -151,10 +150,10 @@ $(function () {
             pointCollection.colour();
     }
 
-    function explode() {
-        if (pointCollection)
-            pointCollection.explode();
-    }
+    // function explode() {
+    //     if (pointCollection)
+    //         pointCollection.explode();
+    // }
 
     function Vector(x, y, z) {
         this.x = x;
@@ -236,19 +235,18 @@ $(function () {
             }
         };
 
-        this.explode = function () {
-            console.log("Explode!!!");
-            var pointsLength = this.points.length;
+        // this.explode = function () {
+        //     var pointsLength = this.points.length;
 
-            for (let i = 0; i < pointsLength; i++) {
-                let dx = this.mousePos.x - this.points[i].curPos.x;
-                let dy = this.mousePos.y - this.points[i].curPos.y;
-                let dd = (dx * dx) + (dy * dy);
-                let d = Math.sqrt(dd);
-                this.points[i].velocity.x -= 100 * Math.sin(0.01 * this.points[i].targetPos.x);
-                this.points[i].velocity.y += 200 * Math.sin(0.01 * this.points[i].targetPos.y);
-            }
-        };
+        //     for (let i = 0; i < pointsLength; i++) {
+        //         let dx = this.mousePos.x - this.points[i].curPos.x;
+        //         let dy = this.mousePos.y - this.points[i].curPos.y;
+        //         let dd = (dx * dx) + (dy * dy);
+        //         let d = Math.sqrt(dd);
+        //         this.points[i].velocity.x -= 100 * Math.sin(0.01 * this.points[i].targetPos.x);
+        //         this.points[i].velocity.y += 200 * Math.sin(0.01 * this.points[i].targetPos.y);
+        //     }
+        // };
 
         this.draw = function () {
             var pointsLength = this.points.length;

@@ -1,5 +1,5 @@
 $(function () {
-    var $canvas = $("#c-research");
+    var $canvas = $("#c-datascience");
     var $homeCanvas = $("#c-home");
     var canvasHeight;
     var canvasWidth;
@@ -11,40 +11,49 @@ $(function () {
 
     function init() {
         updateCanvasDimensions();
-        let rectSize = canvasWidth / 120;
-        let nameString = ["R", "E", "S", "E", "A", "R", "C", "H"];
-        var textWidth = nameString.length * 6 * rectSize;
+        // let rectSize = canvasWidth / 120;
+        // let nameString = ["R", "E", "S", "E", "A", "R", "C", "H"];
+        // var textWidth = nameString.length * 6 * rectSize;
         let bondsCount = 0;
 
-        for (let i = 0; i < nameString.length; i++) {
-            let red = Math.floor(Math.random() * 200) + 1;
-            let grn = Math.floor(Math.random() * 200) + 1;
-            let blu = Math.floor(Math.random() * 200) + 1;
-            let fill = "rgba(" + red + "," + grn + "," + blu + " ,1.0)";
+        for (let i = 0; i < 50; i++) {
+            let fill = 'rgba(200, 200, 200, 1.0)'
+            let x = Math.floor(Math.random() * canvasWidth) + 1;
+            let y = Math.floor(Math.random() * canvasHeight) + 1;
 
-            if (researchAlphabet[nameString[i]]) {
-                for (let j = 0; j < researchAlphabet[nameString[i]].beads.length; j++) {
-                    g.push(new Point(i * 6 * rectSize + rectSize * researchAlphabet[nameString[i]].beads[j][1], rectSize * researchAlphabet[nameString[i]].beads[j][0], 0.0, rectSize, fill));
-                }
-
-                for (let j = 0; j < researchAlphabet[nameString[i]].bonds.length; j++) {
-                    bonds.push([researchAlphabet[nameString[i]].bonds[j][0] + bondsCount, researchAlphabet[nameString[i]].bonds[j][1] + bondsCount]);
-                }
-
-                bondsCount += researchAlphabet[nameString[i]].beads.length;
+            g.push(new Point(x, y, 0.0, rectSize, fill));
+            if (i > 0) {
+                bonds.push([i-1, i]);
+                bondsCount += 1;
             }
+        //     let red = Math.floor(Math.random() * 200) + 1;
+        //     let grn = Math.floor(Math.random() * 200) + 1;
+        //     let blu = Math.floor(Math.random() * 200) + 1;
+        //     let fill = "rgba(" + red + "," + grn + "," + blu + " ,1.0)";
+
+        //     if (researchAlphabet[nameString[i]]) {
+        //         for (let j = 0; j < researchAlphabet[nameString[i]].beads.length; j++) {
+        //             g.push(new Point(i * 6 * rectSize + rectSize * researchAlphabet[nameString[i]].beads[j][1], rectSize * researchAlphabet[nameString[i]].beads[j][0], 0.0, rectSize, fill));
+        //         }
+
+        //         for (let j = 0; j < researchAlphabet[nameString[i]].bonds.length; j++) {
+        //             bonds.push([researchAlphabet[nameString[i]].bonds[j][0] + bondsCount, researchAlphabet[nameString[i]].bonds[j][1] + bondsCount]);
+        //         }
+
+        //         bondsCount += researchAlphabet[nameString[i]].beads.length;
+        //     }
         }
 
-        for (var i = 0; i < g.length; i++) {
-            g[i].targetPos.x = (canvasWidth / 2 - textWidth / 2) + g[i].targetPos.x;
-            g[i].targetPos.y = (canvasHeight / 2 - 8 * rectSize / 2) + g[i].targetPos.y;
+        // for (var i = 0; i < g.length; i++) {
+        //     g[i].targetPos.x = (canvasWidth / 2 - textWidth / 2) + g[i].targetPos.x;
+        //     g[i].targetPos.y = (canvasHeight / 2 - 8 * rectSize / 2) + g[i].targetPos.y;
 
-            g[i].originalPos.x = g[i].targetPos.x;
-            g[i].originalPos.y = g[i].targetPos.y;
+        //     g[i].originalPos.x = g[i].targetPos.x;
+        //     g[i].originalPos.y = g[i].targetPos.y;
 
-            g[i].curPos.x = g[i].targetPos.x;
-            g[i].curPos.y = g[i].targetPos.y;
-        };
+        //     g[i].curPos.x = g[i].targetPos.x;
+        //     g[i].curPos.y = g[i].targetPos.y;
+        // };
 
         pointCollection = new PointCollection();
         pointCollection.points = g;
@@ -67,7 +76,7 @@ $(function () {
         $canvas.attr({ height: $(window).height(), width: $(window).width() });
         canvasWidth = $homeCanvas.width();
         canvasHeight = $homeCanvas.height();
-        rectSize = canvasWidth / 200;
+        rectSize = canvasWidth / 300;
         draw();
     };
 
@@ -106,7 +115,7 @@ $(function () {
             let sc = 50;
             ctx.strokeStyle = "rgba(" + sc + "," + sc + "," + sc + ', 1.0)';
             // ctx.lineWidth= 12000 / d**2;
-            ctx.lineWidth = rectSize * 2.5;
+            ctx.lineWidth = 2;
 
             ctx.beginPath();
             ctx.moveTo(g[bonds[i][0]].curPos.x, g[bonds[i][0]].curPos.y);
@@ -158,8 +167,8 @@ $(function () {
                 if (point == null)
                     continue;
 
-                point.velocity.x += 0.7 * (Math.random() - 0.5);
-                point.velocity.y += 0.7 * (Math.random() - 0.5);
+                // point.velocity.x += 0.7 * (Math.random() - 0.5);
+                // point.velocity.y += 0.7 * (Math.random() - 0.5);
                 point.update();
             };
         };
@@ -229,19 +238,16 @@ $(function () {
 });
 
 $(document).ready(function () {
-    $(".icon-flaskfull").hover(function () {
-        $("#c-research").removeClass("hidden");
+    $(".icon-binary").hover(function () {
+        $("#c-datascience").removeClass("hidden");
         $("#c-home").addClass("hidden");
         $("#c-home").fadeOut(500);
-        $("#c-research").fadeIn(3000);
+        $("#c-datascience").fadeIn(3000);
     },
     function () {
-
-        $("#c-research").fadeOut(500);
+        $("#c-datascience").fadeOut(500);
         $("#c-home").fadeIn(1000);
-        $("#c-research").addClass("hidden");
+        $("#c-datascience").addClass("hidden");
         $("#c-home").removeClass("hidden");
-
-        
     });
 });
