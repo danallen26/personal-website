@@ -3,8 +3,6 @@ html {
 }
 
 body {
-	background-image: url("test.jpg");
-	/*background-color: #bb1717;*/
     position:fixed;
     top:0;
     bottom:0;
@@ -25,7 +23,7 @@ body {
 	display: block;
 }*/
 
-#c {
+#c-research {
     padding-left: 0;
     padding-right: 0;
     margin-left: 0;
@@ -64,8 +62,9 @@ body {
     overflow:hidden;
 }*/
 
-.glyphicon {
-    font-size: 40px;
-    padding-left: 10px;
+i {
+    font-size: 35px;
+    padding-left: 30px;
     padding-top: 5px;
+    padding-right: 50px;
 }

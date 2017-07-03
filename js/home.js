@@ -1,5 +1,5 @@
 $(function () {
-    var $canvas = $("#c");
+    var $canvas = $("#c-home");
     var canvasHeight;
     var canvasWidth;
     var ctx;
@@ -17,6 +17,7 @@ $(function () {
     function init() {
         updateCanvasDimensions();
         let rectSize = canvasWidth / 120;
+        console.log("rectSize (main) is: ", rectSize);
         var g = [];
         let nameString = ["L", "A", "M", "B", "E", "R", "T", "", "L", "A", "B", "S", "",
                           "L", "T", "D", "PERIOD"];
@@ -95,7 +96,7 @@ $(function () {
         $canvas.attr({ height: $(window).height(), width: $(window).width() });
         canvasWidth = $canvas.width();
         canvasHeight = $canvas.height();
-        rectSize = canvasWidth / 200;
+        // rectSize = canvasWidth / 200;
         draw();
     };
 
