@@ -16,7 +16,7 @@ $(function () {
         // var textWidth = nameString.length * 6 * rectSize;
         let bondsCount = 0;
 
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 150; i++) {
             let fill = 'rgba(200, 200, 200, 1.0)'
             let x = Math.floor(Math.random() * canvasWidth) + 1;
             let y = Math.floor(Math.random() * canvasHeight) + 1;
@@ -113,7 +113,7 @@ $(function () {
             let dd = (dx * dx) + (dy * dy);
             let d = Math.sqrt(dd);
             let sc = 50;
-            ctx.strokeStyle = "rgba(" + sc + "," + sc + "," + sc + ', 1.0)';
+            ctx.strokeStyle = "rgba(" + sc + "," + sc + "," + sc + ', 0.3)';
             // ctx.lineWidth= 12000 / d**2;
             ctx.lineWidth = 2;
 
