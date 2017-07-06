@@ -16,10 +16,9 @@ $(function () {
 
     function init() {
         updateCanvasDimensions();
-        let rectSize = canvasWidth / 120;
+        let rectSize = canvasWidth / 100;
         var g = [];
-        let nameString = ["L", "A", "M", "B", "E", "R", "T", "", "L", "A", "B", "S", "",
-                          "L", "T", "D", "PERIOD"];
+        let nameString = ["D", "A", "N", "", "A", "L", "L", "E", "N", "PERIOD"];
         var textWidth = nameString.length * 6 * rectSize;
 
         for (let i = 0; i < nameString.length; i++) {
@@ -54,7 +53,9 @@ $(function () {
                 for (let j = 0; j < alphabet[nameString[i]].length; j++) {
                     rgb.push([red, grn, blu]);
                     amplitudes.push([redAmp, grnAmp, bluAmp]);
-                    g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 2, fill, stroke, true));
+                    // g.push(new roundRectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, 2, fill, stroke, true));
+                    g.push(new Rectangle(i * 6 * rectSize + rectSize * alphabet[nameString[i]][j][1], rectSize * alphabet[nameString[i]][j][0], 0.0, rectSize, fill));
+
                 }
             }
         }
@@ -73,7 +74,11 @@ $(function () {
         pointCollection = new PointCollection();
         pointCollection.points = g;
         initEventListeners();
+        // var canvas = document.getElementById('c-home');
+        // var ctx = canvas.getContext('2d');
+
         timeout();
+        
     };
 
     function initEventListeners() {
@@ -138,6 +143,10 @@ $(function () {
 
         if (pointCollection)
             pointCollection.draw();
+            ctx.font = '40px Lato';
+            ctx.fillStyle = "rgba(30, 30, 30, 0.5)";
+            ctx.textAlign = "center";
+            ctx.fillText('Physics PhD, aspiring software developer and data scientist.', canvasWidth/2, 3*canvasHeight/4);
     };
 
     function update() {
@@ -230,7 +239,7 @@ $(function () {
                 let tmpRed = rgb[i][0] + Math.floor(amplitudes[i][0] * Math.cos(redFreq * d + redPhase));
                 let tmpGrn =  rgb[i][1] + Math.floor(amplitudes[i][1] * Math.cos(grnFreq * d + grnPhase));
                 let tmpBlu =  rgb[i][2] + Math.floor(amplitudes[i][2] * Math.cos(bluFreq * d + bluPhase));
-                this.points[i].fill = "rgba(" + tmpRed + "," + tmpGrn + "," + tmpBlu + ',0.5)';
+                this.points[i].colour = "rgba(" + tmpRed + "," + tmpGrn + "," + tmpBlu + ',0.5)';
                 
             }
         };
@@ -260,6 +269,54 @@ $(function () {
             };
         };
     };
+
+    function Rectangle(x, y, z, size, colour) {
+                this.colour = colour;
+                this.curPos = new Vector(x, y, z);
+                this.friction = 0.8; // 0.8
+                this.originalPos = new Vector(x, y, z);
+                // this.radius = size
+                this.size = size;
+                this.springStrength = 0.2;
+                this.targetPos = new Vector(x, y, z);
+                this.velocity = new Vector(0.0, 0.0, 0.0);
+
+                this.update = function() {
+                    var dx = this.targetPos.x - this.curPos.x;
+                    var ax = dx * this.springStrength;
+                    this.velocity.x += ax;
+                    this.velocity.x *= this.friction;
+                    this.curPos.x += this.velocity.x;
+
+                    var dy = this.targetPos.y - this.curPos.y;
+                    var ay = dy * this.springStrength;
+                    this.velocity.y += ay;
+                    this.velocity.y *= this.friction;
+                    this.curPos.y += this.velocity.y;
+
+                    var dox = this.originalPos.x - this.curPos.x;
+                    var doy = this.originalPos.y - this.curPos.y;
+                    var dd = (dox * dox) + (doy * doy);
+                    var d = Math.sqrt(dd);
+
+                    this.targetPos.z = d/100 + 1;
+                    var dz = this.targetPos.z - this.curPos.z;
+                    var az = dz * this.springStrength;
+                    this.velocity.z += az;
+                    this.velocity.z *= this.friction;
+                    this.curPos.z += this.velocity.z;
+
+                    this.radius = this.size*this.curPos.z;
+                    if (this.radius < 1) this.radius = 1;
+                };
+
+                this.draw = function() {
+                    ctx.fillStyle = this.colour;
+                    ctx.beginPath();
+                    ctx.rect(this.curPos.x, this.curPos.y, this.size, this.size);
+                    ctx.fill();
+                };
+            };
 
     function roundRectangle(x, y, z, size, radius, fill, stroke) {
         this.curPos = new Vector(x, y, z);

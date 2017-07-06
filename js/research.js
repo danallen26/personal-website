@@ -230,15 +230,15 @@ $(function () {
 
 $(document).ready(function () {
     $(".icon-flaskfull").hover(function () {
+        $("#c-home").fadeOut(500);
+        $("#c-research").fadeIn(2000);
         $("#c-research").removeClass("hidden");
         $("#c-home").addClass("hidden");
-        $("#c-home").fadeOut(500);
-        $("#c-research").fadeIn(3000);
+        
     },
     function () {
-
         $("#c-research").fadeOut(500);
-        $("#c-home").fadeIn(1000);
+        $("#c-home").fadeIn(2000);
         $("#c-research").addClass("hidden");
         $("#c-home").removeClass("hidden");
 

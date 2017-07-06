@@ -21,6 +21,28 @@ h1 {
     
 }
 
+@keyframes background {
+  0% {
+    background-position: 50% 0%
+  }
+  50% {
+    background-position: 50% 100%
+  }
+  100%{
+    background-position: 50% 0%
+  }
+}
+
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  background: linear-gradient(0deg, #ffffff, #eff0ff);
+  background-size: 100% 100%;
+  /*animation: background 10s linear infinite;*/
+}
+
 #c-research {
     padding-left: 0;
     padding-right: 0;
@@ -42,6 +64,17 @@ h1 {
 
 i {
     font-size: 35px;
+    padding-left: 30px;
+    padding-top: 5px;
+    padding-right: 50px;
+}
+
+i:hover {
+    color:#62c1a9;
+}
+
+.contact {
+    font-size: 60px;
     padding-left: 30px;
     padding-top: 5px;
     padding-right: 50px;

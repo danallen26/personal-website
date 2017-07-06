@@ -17,7 +17,10 @@ $(function () {
         let bondsCount = 0;
 
         for (let i = 0; i < 150; i++) {
-            let fill = 'rgba(200, 200, 200, 1.0)'
+            let red = Math.floor(Math.random() * 200) + 1;
+            let grn = Math.floor(Math.random() * 200) + 1;
+            let blu = Math.floor(Math.random() * 200) + 1;
+            let fill = "rgba(" + red + "," + grn + "," + blu + " ,0.2)";
             let x = Math.floor(Math.random() * canvasWidth) + 1;
             let y = Math.floor(Math.random() * canvasHeight) + 1;
 
@@ -58,7 +61,13 @@ $(function () {
         pointCollection = new PointCollection();
         pointCollection.points = g;
         initEventListeners();
+        drawBonds();
+        draw();
         timeout();
+        // ctx = tmpCanvas.getContext("2d");
+        // ctx.font = "30px Arial";
+        // ctx.textAlign = "center";
+        // ctx.fillText("Data Science",canvas.width/2, canvas.height/2);
     };
 
     function initEventListeners() {
@@ -81,9 +90,9 @@ $(function () {
     };
 
     function timeout() {
-        drawBonds();
-        draw();
-        update();
+        // drawBonds();
+        // draw();
+        // update();
         setTimeout(function () { timeout(); }, 30);
     };
 
@@ -112,10 +121,16 @@ $(function () {
             let dy = g[bonds[i][0]].curPos.y - g[bonds[i][1]].curPos.y;
             let dd = (dx * dx) + (dy * dy);
             let d = Math.sqrt(dd);
-            let sc = 50;
-            ctx.strokeStyle = "rgba(" + sc + "," + sc + "," + sc + ', 0.3)';
+            let red = Math.floor(Math.random() * 200) + 1;
+            let grn = Math.floor(Math.random() * 200) + 1;
+            let blu = Math.floor(Math.random() * 200) + 1;
+            ctx.strokeStyle = "rgba(" + red + "," + grn + "," + blu + " ,0.2)";
+
+            // let sc = 50;
+
+            // ctx.strokeStyle = "rgba(" + sc + "," + sc + "," + sc + ', 0.3)';
             // ctx.lineWidth= 12000 / d**2;
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 1;
 
             ctx.beginPath();
             ctx.moveTo(g[bonds[i][0]].curPos.x, g[bonds[i][0]].curPos.y);
@@ -183,6 +198,13 @@ $(function () {
 
                 point.draw();
             };
+            var canvas = document.getElementById('c-datascience');
+            var ctx = canvas.getContext('2d');
+            ctx.font = '150px Lato';
+            ctx.fillStyle = "rgba(10, 10, 50, 0.8)";
+            ctx.textAlign = "center";
+            ctx.fillText('Data Science', canvasWidth/2, 3*canvasHeight/5);
+
         };
     };
 
@@ -239,14 +261,14 @@ $(function () {
 
 $(document).ready(function () {
     $(".icon-binary").hover(function () {
+        $("#c-home").fadeOut(500);
+        $("#c-datascience").fadeIn(2000);
         $("#c-datascience").removeClass("hidden");
         $("#c-home").addClass("hidden");
-        $("#c-home").fadeOut(500);
-        $("#c-datascience").fadeIn(3000);
     },
     function () {
         $("#c-datascience").fadeOut(500);
-        $("#c-home").fadeIn(1000);
+        $("#c-home").fadeIn(2000);
         $("#c-datascience").addClass("hidden");
         $("#c-home").removeClass("hidden");
     });

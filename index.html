@@ -7,7 +7,12 @@
 		<link rel="stylesheet" href="css/main.css" />
 		<link rel="stylesheet" href="css/whhg-font/css/whhg.css">
 		<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+		<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+		<style>
+		body {
+		    font-family: 'Lato';font-size: 22px;
+		}
+		</style>
 		<script type="text/javascript" src="js/alphabet.js"></script>
 		<script type="text/javascript" src="js/research-alphabet.js"></script>
 		<script type="text/javascript" src="js/home.js"></script>
@@ -15,19 +20,31 @@
 		<script type="text/javascript" src="js/research.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="row">
+			<a href="index.html"><i class="icon-home"></i></a>
+			<a href="research.html"><i class="icon-flaskfull"></i></a>
+			<a href=""><i class="icon-binary"></i></a>
+			<a href=""><i class="icon-equalizeralt"></i></a>
+			<a href=""><i class="icon-camera"></i></a>
+			<!-- <a href=""><i class="icon-envelope"></i></a> -->
+			<!-- <a href=""><i class="icon-circlegithub"></i></a> -->
+			<!-- <a href=""><i class="icon-linkedin"></i></a> -->
+		</div>
+	</nav>
+	<nav class="navbar navbar-inverse navbar-fixed-bottom" style="background-color: transparent; border-color: transparent; text-align: center;">
+		<div class="row">
+			<!-- <a href="index.html"><i class="icon-home"></i></a>
+			<a href="research.html"><i class="icon-flaskfull"></i></a>
+			<a href=""><i class="icon-binary"></i></a>
+			<a href=""><i class="icon-equalizeralt"></i></a>
+			<a href=""><i class="icon-camera"></i></a> -->
+			<a href=""><i class="icon-envelope contact"></i></a>
+			<a href=""><i class="icon-circlegithub contact"></i></a>
+			<a href=""><i class="icon-linkedin contact"></i></a>
+		</div>
+	</nav>
 	<body>
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="row">
-				<a href="index.html"><i class="icon-home"></i></a>
-				<a href="research.html"><i class="icon-flaskfull"></i></a>
-				<a href=""><i class="icon-binary"></i></a>
-				<a href=""><i class="icon-equalizeralt"></i></a>
-				<a href=""><i class="icon-camera"></i></a>
-				<a href=""><i class="icon-envelope"></i></a>
-				<a href=""><i class="icon-circlegithub"></i></a>
-				<a href=""><i class="icon-linkedin"></i></a>
-			</div>
-		</nav>
 		<div class="container-fluid fill">
 			<canvas id="c-home" class="canvas"></canvas>
 			<canvas id="c-research" class="canvas hidden"></canvas>
